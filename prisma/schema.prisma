@@ -10,10 +10,46 @@ datasource db {
 model Admin {
   name     String
   email    String @id
-  userName String @unique
+  user   String @unique
   password String
   active  Boolean @default(false)
 
+  institutions Institution[]
+
   @@map("admins")
 }
+
+model UF {
+  sigla String @id 
+  nome String
+
+  adresses Address[]
+}
+
+model Address {
+  id String @id @default(uuid())
+  estado String
+  cep String @db.Char(9)
+  cidade String
+  bairro String
+  rua String
+  numero Int
+
+  uf UF @relation(fields: [estado], references: [sigla])
+  Institutions Institution[]
+}
+
+model Institution {
+  name String @id
+  address String
+  admin String
+
+  adminUser Admin @relation(fields: [admin], references: [user])
+  addressId Address @relation(fields: [address], references: [id])
+}
+
+
+
+
+
 

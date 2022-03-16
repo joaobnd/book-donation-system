@@ -3,7 +3,7 @@ import { encrypt } from "../utils/bcrypt";
 import { sendMail } from "../utils/mailSender";
 
 class CreateAdminService {
-    async execute(name: string, email: string, userName: string, password: string) {
+    async execute(name: string, email: string, user: string, password: string) {
 
         const emailAlreadyExist = await prismaClient.admin.findUnique({
             where: {
@@ -15,13 +15,13 @@ class CreateAdminService {
             throw new Error("Email already exists!")
         };
 
-        const userNameAlreadyExist = await prismaClient.admin.findUnique({
+        const userAlreadyExist = await prismaClient.admin.findUnique({
             where: {
-                userName: userName
+                user: user
             }
         });
 
-        if(userNameAlreadyExist) {
+        if(userAlreadyExist) {
             throw new Error("User Name already exists!")
         };
 
@@ -29,7 +29,7 @@ class CreateAdminService {
             data: {
                 name: name,
                 email: email,
-                userName: userName,
+                user: user,
                 password: await encrypt(password)
             }
         });
