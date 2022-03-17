@@ -1,4 +1,4 @@
-import prismaClient from "../prisma";
+import prismaClient from "../../prisma";
 
 class ActivateAccountService {
     async execute(email: string) {
@@ -13,7 +13,7 @@ class ActivateAccountService {
             throw new Error("Admin not found!")
         };
 
-        return "Account activaded sucessfuly"
+        return {message:"Account activaded sucessfuly"}
     }
 };
 

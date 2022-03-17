@@ -20,7 +20,7 @@ model Admin {
 }
 
 model UF {
-  sigla String @id 
+  sigla String @id @db.Char(2)
   nome String
 
   adresses Address[]
@@ -28,7 +28,7 @@ model UF {
 
 model Address {
   id String @id @default(uuid())
-  estado String
+  estado String @db.Char(2)
   cep String @db.Char(9)
   cidade String
   bairro String
@@ -37,15 +37,35 @@ model Address {
 
   uf UF @relation(fields: [estado], references: [sigla])
   Institutions Institution[]
+  Books Book[]
+
+  @@map("adresses")
 }
 
 model Institution {
   name String @id
   address String
-  admin String
+  admin String?
 
-  adminUser Admin @relation(fields: [admin], references: [user])
+  adminUser Admin? @relation(fields: [admin], references: [user])
   addressId Address @relation(fields: [address], references: [id])
+  books Book[]
+}
+
+model Book {
+  id String @id @default(uuid())
+  name String
+  edition String
+  year Int
+  date String
+  condition String
+  amount Int
+  address String
+  institution String
+
+  institutionName Institution @relation(fields: [institution], references: [name])
+  addressId Address @relation(fields: [address], references: [id])
+
 }
 
 

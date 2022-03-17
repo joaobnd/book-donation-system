@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetAddressService } from "../services/getAddressService";
+import { GetAddressService } from "../utils/getAddressService";
 
 class GetAddressController {
     async handle(req: Request, res: Response) {

@@ -3,7 +3,7 @@ import { CreateAdminService } from "../services/createAdminService";
 
 class CreateAdminController {
     async handle(req: Request, res: Response) {
-        const { name, email, user, password } = req.body;
+        const {name, email, user, password} = req.body;
 
         const service = new CreateAdminService();
 

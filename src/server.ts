@@ -5,10 +5,6 @@ import { router } from "./routes";
 const app = express();
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-    res.json({ message: 'hello world'})
-});
-
 app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
