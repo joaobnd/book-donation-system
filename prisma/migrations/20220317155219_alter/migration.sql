@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Book" ALTER COLUMN "date" SET DATA TYPE TEXT;

@@ -7,69 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
-  name     String
-  email    String @id
-  user   String @unique
-  password String
-  active  Boolean @default(false)
-
-  institutions Institution[]
-
-  @@map("admins")
+model Contact {
+  id           Int    @id @default(autoincrement())
+  name         String
+  phone        String
+  street       String
+  city         String
+  neighborhood String
+  number       String
+  state        String
 }
-
-model UF {
-  sigla String @id @db.Char(2)
-  nome String
-
-  adresses Address[]
-}
-
-model Address {
-  id String @id @default(uuid())
-  estado String @db.Char(2)
-  cep String @db.Char(9)
-  cidade String
-  bairro String
-  rua String
-  numero Int
-
-  uf UF @relation(fields: [estado], references: [sigla])
-  Institutions Institution[]
-  Books Book[]
-
-  @@map("adresses")
-}
-
-model Institution {
-  name String @id
-  address String
-  admin String?
-
-  adminUser Admin? @relation(fields: [admin], references: [user])
-  addressId Address @relation(fields: [address], references: [id])
-  books Book[]
-}
-
-model Book {
-  id String @id @default(uuid())
-  name String
-  edition String
-  year Int
-  date String
-  condition String
-  amount Int
-  address String
-  institution String
-
-  institutionName Institution @relation(fields: [institution], references: [name])
-  addressId Address @relation(fields: [address], references: [id])
-
-}
-
-
-
-
-
-
